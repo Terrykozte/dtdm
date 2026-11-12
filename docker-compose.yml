@@ -131,7 +131,7 @@ services:
 
   # ------------------------------------------------------------ 5. STORAGE ---
   object-storage-server:
-    image: minio/minio:latest
+    image: elestio/minio:latest
     container_name: object-storage-server
     command: ["server", "/data", "--console-address", ":9001"]
     environment:
@@ -149,7 +149,7 @@ services:
 
   # Job chay 1 lan: tao bucket demo / profile-pics (public) / documents va upload file mau
   minio-init:
-    image: minio/mc:latest
+    image: alpine:latest
     container_name: minio-init
     depends_on: [object-storage-server]
     volumes:
@@ -157,6 +157,8 @@ services:
       - ./web/html:/seed-web:ro
     entrypoint: >
       /bin/sh -c "
+      apk add --no-cache curl;
+      curl -s https://dl.min.io/client/mc/release/linux-amd64/mc -o /usr/local/bin/mc && chmod +x /usr/local/bin/mc;
       until mc alias set local http://object-storage-server:9000 minioadmin minioadmin >/dev/null 2>&1; do echo 'waiting for minio...'; sleep 2; done;
       mc mb --ignore-existing local/demo local/profile-pics local/documents;
       mc anonymous set download local/profile-pics;
