@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS students(
 );
 
 INSERT INTO students(student_id, fullname, dob, major) VALUES
+  ('52300262', 'Pham Hoai Thuong', '2004-01-01', 'Cong Nghe Thong Tin'),
   ('SV001', 'Nguyen Van A', '2002-03-15', 'Computer Science'),
   ('SV002', 'Tran Thi B',   '2001-11-02', 'Data Science'),
   ('SV003', 'Le Van C',     '2002-07-20', 'Cybersecurity');
