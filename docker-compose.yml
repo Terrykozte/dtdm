@@ -1,6 +1,6 @@
 # =============================================================================
 #  MyMiniCloud - He thong Cloud thu nho gom 9 loai server (+ node-exporter,
-#  web-frontend-server2 cho Load Balancing va minio-init khoi tao bucket)
+#  web-frontend-server2 cho Load Balancing, veganglow-web, va minio-init)
 #  Khoi dong:   docker compose up -d --build
 #  Kiem tra:    docker compose ps
 # =============================================================================
@@ -24,7 +24,7 @@ services:
   # ---------------------------------------------------------------- 1. WEB ---
   web-frontend-server:
     build: ./web
-    image: ${DOCKERHUB_USER:-phamhoaithuong}/myminicloud-web:latest
+    image: ${DOCKERHUB_USER:-terrykozte}/myminicloud-web:latest
     container_name: web-frontend-server
     hostname: web-frontend-server1
     environment:
@@ -39,7 +39,7 @@ services:
   # Web server thu 2 (cung image) -> Load Balancer Round Robin (mo rong 10)
   web-frontend-server2:
     build: ./web
-    image: ${DOCKERHUB_USER:-phamhoaithuong}/myminicloud-web:latest
+    image: ${DOCKERHUB_USER:-terrykozte}/myminicloud-web:latest
     container_name: web-frontend-server2
     hostname: web-frontend-server2
     environment:
@@ -51,10 +51,22 @@ services:
         aliases: [web2]
     restart: unless-stopped
 
+  # ------------------------------------------------------ 1.1 VEGANGLOW WEB ---
+  # Web App thuong mai dien tu VeganGlow (Next.js 16) tu Docker Hub
+  veganglow-web:
+    image: terrykozte/veganglow:latest
+    container_name: veganglow-web
+    ports: ["3001:3000"]
+    networks:
+      cloud-net:
+        ipv4_address: 10.10.10.12
+        aliases: [veganglow, shop]
+    restart: unless-stopped
+
   # ---------------------------------------------------------------- 2. APP ---
   application-backend-server:
     build: ./app
-    image: ${DOCKERHUB_USER:-phamhoaithuong}/myminicloud-app:latest
+    image: ${DOCKERHUB_USER:-terrykozte}/myminicloud-app:latest
     container_name: application-backend-server
     environment:
       OIDC_ISSUER: "http://authentication-identity-server:8080/auth/realms/realm_sv001"

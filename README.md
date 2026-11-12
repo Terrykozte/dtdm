@@ -147,3 +147,4 @@ curl -I http://localhost/auth/         # Redirect đến Keycloak
    docker compose up -d --build
    ```
 4. Kiểm tra dịch vụ qua IP Public: `http://<EC2_PUBLIC_IP>/`.
+
