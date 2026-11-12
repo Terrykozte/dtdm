@@ -1,3 +1,12 @@
+# Security & Credentials - TUYET DOI KHONG PUSH
+keys-backup.txt
+*.local*
+*.pem
+*.key
+*.env
+*.env.*
+credentials*
+
 # Object storage data & minio runtime
 storage/data/*
 !storage/data/.gitkeep
@@ -10,4 +19,3 @@ __pycache__/
 # OS files
 .DS_Store
 Thumbs.db
-
