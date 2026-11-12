@@ -4,7 +4,7 @@
 #  Khoi dong:   docker compose up -d --build
 #  Kiem tra:    docker compose ps
 # =============================================================================
-name: myminicloud
+version: '3.8'
 
 networks:
   cloud-net:
