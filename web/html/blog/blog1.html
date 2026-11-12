@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Docker và Container: nền tảng của điện toán đám mây hiện đại – MyMiniCloud Blog</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="/"><span class="dot"></span><span class="grad">MyMiniCloud</span></a>
+      <nav class="nav">
+        <a href="/">Trang chủ</a>
+        <a href="/blog/" class="active">Blog</a>
+        <a href="/lb-test.html">LB Test</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <article class="container article">
+      <div class="breadcrumb"><a href="/">Trang chủ</a> / <a href="/blog/">Blog</a> / Công nghệ</div>
+      <span class="tag">Công nghệ</span>
+      <h1>Docker và Container: nền tảng của điện toán đám mây hiện đại</h1>
+      <div class="meta">Đăng ngày 05/11/2026 · Thời gian đọc khoảng 6 phút</div>
+
+      <p>Nếu bạn từng nghe câu nói quen thuộc “trên máy em chạy được mà!”, thì bạn đã hiểu vì sao Docker ra đời.
+        Trong vài năm gần đây, container đã trở thành viên gạch cơ bản của gần như mọi nền tảng điện toán đám mây,
+        từ các dịch vụ lớn như AWS, Google Cloud cho đến những hệ thống nhỏ như đồ án MyMiniCloud mà mình đang thực hiện.
+        Bài viết này sẽ giải thích container là gì, các khái niệm cốt lõi của Docker và cách mình dùng chúng để dựng
+        một “đám mây mini” gồm 9 máy chủ.</p>
+
+      <figure>
+        <img src="/blog/images/docker-cloud.svg" alt="Cá voi Docker chở các container bay giữa những đám mây" width="800" height="450">
+        <figcaption>Hình 1. Docker đóng gói ứng dụng thành các container nhẹ, dễ di chuyển giữa mọi môi trường.</figcaption>
+      </figure>
+
+      <h2>Container khác máy ảo như thế nào?</h2>
+      <p>Máy ảo (Virtual Machine) mô phỏng toàn bộ một chiếc máy tính, bao gồm cả hệ điều hành khách riêng biệt chạy trên
+        hypervisor. Điều này mang lại khả năng cô lập rất mạnh nhưng cũng tốn nhiều tài nguyên: mỗi máy ảo có thể chiếm vài
+        gigabyte dung lượng và mất hàng chục giây đến vài phút để khởi động.</p>
+      <p>Container thì khác. Các container dùng chung nhân (kernel) của hệ điều hành máy chủ, và chỉ đóng gói phần ứng dụng
+        cùng các thư viện cần thiết. Nhờ các cơ chế như <em>namespaces</em> và <em>cgroups</em> của Linux, mỗi container vẫn
+        có không gian tiến trình, mạng và hệ thống tệp riêng, nhưng kích thước chỉ vài chục megabyte và khởi động gần như
+        tức thì. Vì vậy, trên một chiếc laptop bình thường, ta có thể chạy cùng lúc hàng chục container mà máy vẫn mượt.</p>
+
+      <h2>Bốn khái niệm cốt lõi của Docker</h2>
+      <ul>
+        <li><strong>Image</strong>: bản mẫu chỉ đọc chứa hệ thống tệp và cấu hình của ứng dụng, được xây dựng từ
+          <code>Dockerfile</code>. Image được chia thành nhiều lớp (layer) để tái sử dụng và tải nhanh hơn.</li>
+        <li><strong>Container</strong>: một thể hiện đang chạy của image. Từ một image có thể tạo ra nhiều container giống
+          hệt nhau – đây chính là cơ sở để mở rộng và cân bằng tải.</li>
+        <li><strong>Network</strong>: mạng ảo giúp các container giao tiếp với nhau bằng tên dịch vụ thay vì địa chỉ IP,
+          nhờ DNS tích hợp sẵn của Docker.</li>
+        <li><strong>Volume</strong>: vùng lưu trữ bền vững nằm ngoài vòng đời container, giúp dữ liệu như cơ sở dữ liệu
+          không bị mất khi container bị xóa và tạo lại.</li>
+      </ul>
+
+      <h2>Docker Compose: điều phối nhiều container bằng một tệp</h2>
+      <p>Khi hệ thống có nhiều dịch vụ, việc gõ từng lệnh <code>docker run</code> rất dễ sai sót. Docker Compose cho phép mô
+        tả toàn bộ hệ thống trong một tệp <code>docker-compose.yml</code>: dịch vụ nào dùng image nào, mở cổng nào, gắn
+        volume nào và thuộc mạng nào. Chỉ cần một lệnh <code>docker compose up -d</code>, toàn bộ hệ thống sẽ được dựng lên
+        theo đúng thứ tự phụ thuộc. Đây cũng là cách tiếp cận “hạ tầng dưới dạng mã” (Infrastructure as Code) – cấu hình
+        được lưu trong Git, dễ chia sẻ và dễ tái tạo.</p>
+
+      <blockquote>Container giúp ứng dụng “đóng gói một lần, chạy ở mọi nơi”: từ laptop sinh viên cho đến máy chủ EC2 trên AWS.</blockquote>
+
+      <h2>MyMiniCloud sử dụng container như thế nào?</h2>
+      <p>Đồ án MyMiniCloud gồm 9 máy chủ, mỗi máy chủ là một container, tất cả cùng nằm trên mạng nội bộ
+        <code>cloud-net</code>:</p>
+      <ol>
+        <li><strong>Web Frontend</strong> (Nginx) – phục vụ trang chủ và blog bạn đang đọc.</li>
+        <li><strong>Application Backend</strong> (Flask) – cung cấp các API như <code>/api/hello</code> và <code>/api/student</code>.</li>
+        <li><strong>Database</strong> (MariaDB) – lưu dữ liệu sinh viên, dùng volume để dữ liệu bền vững.</li>
+        <li><strong>Authentication</strong> (Keycloak) – quản lý đăng nhập và phân quyền.</li>
+        <li><strong>Object Storage</strong> (MinIO) – lưu ảnh đại diện và tệp tin theo chuẩn S3.</li>
+        <li><strong>Internal DNS</strong> (Bind9) – phân giải tên miền nội bộ <code>cloud.local</code>.</li>
+        <li><strong>Monitoring</strong> (Prometheus) – thu thập số liệu từ các dịch vụ.</li>
+        <li><strong>Grafana</strong> – hiển thị số liệu giám sát bằng dashboard trực quan.</li>
+        <li><strong>API Gateway / Load Balancer</strong> (Nginx) – reverse proxy, định tuyến và chia tải Round Robin
+          giữa hai bản sao Web Frontend.</li>
+      </ol>
+      <p>Nhờ mạng <code>cloud-net</code>, backend chỉ cần kết nối tới tên <code>db</code> thay vì phải nhớ địa chỉ IP, còn
+        proxy có thể chuyển tiếp request tới <code>web-frontend-server1</code> và <code>web-frontend-server2</code> một cách
+        luân phiên. Bạn có thể tự kiểm chứng điều này tại trang <a href="/lb-test.html">kiểm thử cân bằng tải</a>.</p>
+
+      <h2>Kết luận</h2>
+      <p>Docker không chỉ là một công cụ, mà là cả một cách tư duy mới về việc xây dựng và vận hành phần mềm. Khi đã quen
+        với image, container, network và volume, bạn sẽ thấy việc triển khai một hệ thống phức tạp trở nên nhẹ nhàng hơn
+        rất nhiều. Đó cũng chính là bước đệm vững chắc để tiến tới Kubernetes và các nền tảng đám mây lớn trong tương lai.</p>
+
+      <nav class="post-nav">
+        <a href="/blog/"><small>← Bài trước</small>Danh sách bài viết</a>
+        <a class="next" href="/blog/blog2.html"><small>Bài tiếp theo →</small>Hành trình 3 ngày khám phá Đà Lạt</a>
+      </nav>
+      <p><a href="/">← Về trang chủ</a> · <a href="/blog/">Về danh sách blog</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© MyMiniCloud – Đồ án cuối kỳ Điện toán đám mây</div>
+  </footer>
+</body>
+</html>

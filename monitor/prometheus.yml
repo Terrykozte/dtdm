@@ -1,0 +1,25 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Prometheus tu giam sat chinh no
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Node Exporter: CPU, RAM, Disk, Network cua host
+  - job_name: 'node'
+    static_configs:
+      - targets: ['monitoring-node-exporter-server:9100']
+
+  # Mo rong 7: giam sat chinh web-frontend-server (endpoint /metrics trong Nginx)
+  - job_name: 'web'
+    static_configs:
+      - targets: ['web-frontend-server:80', 'web-frontend-server2:80']
+
+  # MinIO metrics (MINIO_PROMETHEUS_AUTH_TYPE=public)
+  - job_name: 'minio'
+    metrics_path: /minio/v2/metrics/cluster
+    static_configs:
+      - targets: ['object-storage-server:9000']

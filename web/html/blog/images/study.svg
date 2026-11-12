@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" role="img" aria-label="Góc học tập với sách, laptop và đèn bàn">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a2350"/>
+      <stop offset="1" stop-color="#2e1a4f"/>
+    </linearGradient>
+    <linearGradient id="desk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8d5a3b"/><stop offset="1" stop-color="#4e2f1d"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f2a4a"/><stop offset="1" stop-color="#132046"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cfd8dc"/><stop offset="1" stop-color="#78909c"/>
+    </linearGradient>
+    <radialGradient id="light" cx="0.5" cy="0" r="1">
+      <stop offset="0" stop-color="#fff59d" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#fff59d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lamp" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb74d"/><stop offset="1" stop-color="#e65100"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#wall)"/>
+  <g transform="translate(560 40)">
+    <rect width="170" height="110" rx="6" fill="#0d1530" stroke="#4fc3f7" stroke-opacity="0.4" stroke-width="3"/>
+    <path d="M10 100 L60 50 L95 80 L120 60 L160 100 Z" fill="#283593"/>
+    <circle cx="130" cy="30" r="12" fill="#fff59d"/>
+  </g>
+  <g fill="#fff" opacity="0.5">
+    <circle cx="70" cy="60" r="1.5"/><circle cx="160" cy="40" r="1.2"/><circle cx="300" cy="70" r="1.4"/><circle cx="420" cy="35" r="1"/>
+  </g>
+  <path d="M120 120 L20 330 L360 330 L230 120 Z" fill="url(#light)"/>
+  <rect y="330" width="800" height="120" fill="url(#desk)"/>
+  <rect y="330" width="800" height="8" fill="#a1704f"/>
+  <g transform="translate(150 70)">
+    <ellipse cx="0" cy="258" rx="50" ry="8" fill="#000" opacity="0.3"/>
+    <rect x="-40" y="248" width="80" height="12" rx="4" fill="url(#lamp)"/>
+    <path d="M0 250 L-25 130 L30 60" fill="none" stroke="#ff9800" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="-25" cy="130" r="8" fill="#ffb74d"/>
+    <path d="M10 30 L80 55 L55 95 Z" fill="url(#lamp)" transform="rotate(10 40 60)"/>
+    <ellipse cx="-30" cy="55" rx="16" ry="8" fill="#fff59d" transform="rotate(-25 -30 55)" opacity="0"/>
+  </g>
+  <g transform="translate(300 170)">
+    <path d="M10 0 L250 0 C258 0 262 4 262 12 L262 150 L-2 150 L-2 12 C-2 4 2 0 10 0 Z" fill="#37474f"/>
+    <rect x="10" y="12" width="240" height="130" rx="3" fill="url(#screen)"/>
+    <g font-family="Consolas, monospace" font-size="12">
+      <text x="22" y="34" fill="#81d4fa">$ docker compose up -d</text>
+      <text x="22" y="54" fill="#a5d6a7">✔ web-frontend-server1 Started</text>
+      <text x="22" y="72" fill="#a5d6a7">✔ web-frontend-server2 Started</text>
+      <text x="22" y="90" fill="#a5d6a7">✔ application-backend  Started</text>
+      <text x="22" y="108" fill="#ce93d8">def study(): focus(25)</text>
+      <rect x="22" y="118" width="8" height="12" fill="#81d4fa"><animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/></rect>
+    </g>
+    <path d="M-30 150 L290 150 L305 166 L-45 166 Z" fill="url(#body)"/>
+    <rect x="100" y="152" width="60" height="5" rx="2" fill="#546e7a"/>
+  </g>
+  <g transform="translate(615 220)">
+    <rect x="0" y="80" width="150" height="30" rx="3" fill="#e53935"/>
+    <rect x="0" y="80" width="150" height="5" fill="#fff" opacity="0.25"/>
+    <rect x="10" y="50" width="135" height="30" rx="3" fill="#1e88e5"/>
+    <rect x="10" y="50" width="135" height="5" fill="#fff" opacity="0.25"/>
+    <rect x="-5" y="22" width="140" height="28" rx="3" fill="#43a047"/>
+    <rect x="-5" y="22" width="140" height="5" fill="#fff" opacity="0.25"/>
+    <g fill="#fff" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700">
+      <text x="20" y="101">CLOUD</text><text x="30" y="71">DOCKER</text><text x="12" y="42">PYTHON</text>
+    </g>
+    <g transform="translate(40 -30) rotate(-8)">
+      <rect width="80" height="50" rx="3" fill="#ffe082"/>
+      <path d="M40 4 L40 48" stroke="#c49000" stroke-width="2"/>
+      <g stroke="#c49000" stroke-width="1.5" opacity="0.7">
+        <line x1="8" y1="14" x2="34" y2="14"/><line x1="8" y1="24" x2="34" y2="24"/><line x1="46" y1="14" x2="72" y2="14"/><line x1="46" y1="24" x2="72" y2="24"/>
+      </g>
+    </g>
+  </g>
+  <g transform="translate(70 345)">
+    <path d="M0 0 L40 0 L36 45 L4 45 Z" fill="#ffffff" opacity="0.9"/>
+    <path d="M40 10 C55 10 55 32 38 32" fill="none" stroke="#ffffff" stroke-width="5" opacity="0.9"/>
+    <path d="M12 -8 c-4 -8 4 -12 0 -20 M24 -8 c-4 -8 4 -12 0 -20" stroke="#fff" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  </g>
+  <g transform="translate(470 380) rotate(-10)">
+    <rect width="120" height="8" rx="3" fill="#fdd835"/><path d="M120 0 L134 4 L120 8 Z" fill="#ffcc80"/>
+  </g>
+  <text x="400" y="430" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#ffe0b2" letter-spacing="3">TỰ HỌC · KIÊN TRÌ · THỰC HÀNH</text>
+</svg>

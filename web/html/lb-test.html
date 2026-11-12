@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kiểm thử cân bằng tải (Round Robin) – MyMiniCloud</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="/"><span class="dot"></span><span class="grad">MyMiniCloud</span></a>
+      <nav class="nav">
+        <a href="/">Trang chủ</a>
+        <a href="/blog/">Blog</a>
+        <a href="/lb-test.html" class="active">LB Test</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container article">
+      <div class="breadcrumb"><a href="/">Trang chủ</a> / LB Test</div>
+      <h1>Kiểm thử cân bằng tải (Round Robin)</h1>
+      <p>Trang này gửi lần lượt <strong>10 request</strong> tới đường dẫn <code>/whoami</code>.
+        Mỗi container Nginx của Web Frontend trả về tên của chính nó (ví dụ <code>web-frontend-server1</code>).</p>
+      <ul>
+        <li>Khi truy cập qua <strong>reverse proxy / load balancer</strong> (cổng <code>80</code>),
+          kết quả sẽ <strong>luân phiên</strong> giữa <span class="server-1">web-frontend-server1</span> và
+          <span class="server-2">web-frontend-server2</span> theo thuật toán Round Robin.</li>
+        <li>Khi truy cập trực tiếp qua cổng <code>8080</code>, mọi request luôn do <strong>một máy chủ duy nhất</strong> xử lý.</li>
+      </ul>
+      <p class="muted">Bạn đang truy cập: <code id="origin">…</code></p>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" id="run">Gửi 10 request</button>
+        <a class="btn btn-ghost" href="/">← Về trang chủ</a>
+      </div>
+
+      <div class="count-box" id="counts"></div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Request #</th><th>Máy chủ phục vụ</th></tr></thead>
+          <tbody id="result"><tr><td colspan="2" class="muted">Chưa có dữ liệu – hãy bấm “Gửi 10 request”.</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© MyMiniCloud – Đồ án cuối kỳ Điện toán đám mây</div>
+  </footer>
+
+  <script>
+    (function () {
+      document.getElementById('origin').textContent = window.location.origin;
+      var btn = document.getElementById('run');
+      var tbody = document.getElementById('result');
+      var countsEl = document.getElementById('counts');
+
+      function cls(name) {
+        if (/1\s*$/.test(name)) return 'server-1';
+        if (/2\s*$/.test(name)) return 'server-2';
+        return '';
+      }
+      function esc(s) {
+        return String(s).replace(/[&<>"]/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+        });
+      }
+      function renderCounts(counts) {
+        var html = '';
+        Object.keys(counts).sort().forEach(function (k) {
+          html += '<div class="card"><div class="num ' + cls(k) + '">' + counts[k] +
+                  '</div><div>' + esc(k) + '</div></div>';
+        });
+        countsEl.innerHTML = html;
+      }
+
+      btn.addEventListener('click', async function () {
+        btn.disabled = true;
+        btn.textContent = 'Đang gửi…';
+        tbody.innerHTML = '';
+        var counts = {};
+        for (var i = 1; i <= 10; i++) {
+          var name;
+          try {
+            var r = await fetch('/whoami?ts=' + Date.now() + i, { cache: 'no-store' });
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            name = (await r.text()).trim() || 'không xác định';
+          } catch (e) {
+            name = 'lỗi: ' + e.message;
+          }
+          counts[name] = (counts[name] || 0) + 1;
+          var tr = document.createElement('tr');
+          tr.innerHTML = '<td>' + i + '</td><td class="' + cls(name) + '">' + esc(name) + '</td>';
+          tbody.appendChild(tr);
+          renderCounts(counts);
+        }
+        btn.disabled = false;
+        btn.textContent = 'Gửi 10 request';
+      });
+    })();
+  </script>
+</body>
+</html>

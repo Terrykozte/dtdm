@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="MyMiniCloud – hệ thống điện toán đám mây mini gồm 9 máy chủ chạy bằng Docker">
+  <title>MyMiniCloud – Home</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="/"><span class="dot"></span><span class="grad">MyMiniCloud</span></a>
+      <nav class="nav">
+        <a href="/" class="active">Trang chủ</a>
+        <a href="/blog/">Blog</a>
+        <a href="/lb-test.html">LB Test</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <div>
+          <span class="badge" id="whoami">Phục vụ bởi: đang kiểm tra…</span>
+          <h1>MyMiniCloud – Home</h1>
+          <p>Chào mừng bạn đến với <strong>MyMiniCloud</strong> – một hệ thống điện toán đám mây thu nhỏ gồm
+            9 máy chủ chạy trong các container Docker, kết nối với nhau qua mạng <code>cloud-net</code>.
+            Hệ thống mô phỏng đầy đủ các thành phần của một đám mây thực tế: web, ứng dụng, cơ sở dữ liệu,
+            xác thực, lưu trữ đối tượng, DNS nội bộ, giám sát và cân bằng tải.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="/blog/">📝 Đọc Blog cá nhân →</a>
+            <a class="btn btn-ghost" href="/lb-test.html">⚖️ Kiểm thử cân bằng tải</a>
+          </div>
+        </div>
+        <img src="/blog/images/hero.svg" alt="Minh họa đám mây và các nút mạng của MyMiniCloud" width="800" height="450">
+      </section>
+
+      <h2 class="section-title">Bài viết mới</h2>
+      <ul class="post-list">
+        <li><a href="/blog/blog1.html">Docker và Container: nền tảng của điện toán đám mây hiện đại</a><span class="tag">Công nghệ</span></li>
+        <li><a href="/blog/blog2.html">Hành trình 3 ngày khám phá Đà Lạt</a><span class="tag">Du lịch</span></li>
+        <li><a href="/blog/blog3.html">Phương pháp tự học hiệu quả cho sinh viên CNTT</a><span class="tag">Học tập</span></li>
+      </ul>
+      <p><a href="/blog/">Xem tất cả bài viết trên Blog →</a></p>
+
+      <h2 class="section-title">Dịch vụ trong hệ thống</h2>
+      <p class="muted">Các liên kết bên dưới được tạo tự động theo địa chỉ máy chủ hiện tại
+        (<code id="host-label">localhost</code>), nên hoạt động cả trên máy cá nhân lẫn trên AWS EC2.</p>
+
+      <div class="grid">
+        <article class="card">
+          <h3><span class="icon">🌐</span> Web Frontend</h3>
+          <p>Nginx phục vụ trang web tĩnh và blog cá nhân.</p>
+          <div class="links"><a data-href="http://HOST:8080/">http://HOST:8080/</a></div>
+        </article>
+
+        <article class="card">
+          <h3><span class="icon">⚙️</span> Application Backend</h3>
+          <p>Ứng dụng Flask cung cấp REST API cho hệ thống.</p>
+          <div class="links">
+            <a data-href="http://HOST/api/hello">http://HOST/api/hello</a>
+            <a data-href="http://HOST:8085/hello">http://HOST:8085/hello</a> <span class="muted">(truy cập trực tiếp)</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3><span class="icon">🎓</span> Student API &amp; DB API</h3>
+          <p>API danh sách sinh viên (JSON) và API đọc dữ liệu từ MariaDB.</p>
+          <div class="links">
+            <a data-href="http://HOST/api/student">http://HOST/api/student</a>
+            <a data-href="http://HOST/student/">http://HOST/student/</a>
+            <a data-href="http://HOST/api/students-db">http://HOST/api/students-db</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3><span class="icon">🗄️</span> Database (MariaDB)</h3>
+          <p>Cơ sở dữ liệu quan hệ lưu thông tin sinh viên.</p>
+          <div class="links"><span><code>port 3306 (nội bộ)</code></span></div>
+        </article>
+
+        <article class="card">
+          <h3><span class="icon">🔐</span> Authentication (Keycloak)</h3>
+          <p>Quản lý định danh, đăng nhập và phân quyền người dùng.</p>
+          <div class="links">
+            <a data-href="http://HOST:8081/auth/">http://HOST:8081/auth/</a>
+            <span class="muted">Tài khoản: <code>admin/admin</code></span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3><span class="icon">🪣</span> Object Storage (MinIO)</h3>
+          <p>Lưu trữ đối tượng tương thích S3 cho ảnh và tệp tin.</p>
+          <div class="links">
+            <a data-href="http://HOST:9001">Console: http://HOST:9001</a>
+            <span class="muted">Tài khoản: <code>minioadmin/minioadmin</code></span>
+            <a data-href="http://HOST:9000/profile-pics/avatar.jpg">http://HOST:9000/profile-pics/avatar.jpg</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3><span class="icon">🧭</span> Internal DNS (Bind9)</h3>
+          <p>Phân giải tên miền nội bộ cho các dịch vụ.</p>
+          <div class="links"><span><code>UDP 1053, zone cloud.local</code></span></div>
+        </article>
+
+        <article class="card">
+          <h3><span class="icon">📈</span> Monitoring (Prometheus)</h3>
+          <p>Thu thập số liệu (metrics) từ các máy chủ trong hệ thống.</p>
+          <div class="links"><a data-href="http://HOST:9090/targets">http://HOST:9090/targets</a></div>
+        </article>
+
+        <article class="card">
+          <h3><span class="icon">📊</span> Grafana</h3>
+          <p>Trực quan hóa số liệu giám sát bằng dashboard.</p>
+          <div class="links">
+            <a data-href="http://HOST:3000">http://HOST:3000</a>
+            <span class="muted">Tài khoản: <code>admin/admin</code></span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3><span class="icon">⚖️</span> API Gateway / Load Balancer</h3>
+          <p>Nginx reverse proxy, định tuyến API và cân bằng tải Round Robin.</p>
+          <div class="links">
+            <a data-href="http://HOST/">http://HOST/</a>
+            <a data-href="http://HOST/lb-test.html">http://HOST/lb-test.html</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© MyMiniCloud – Đồ án cuối kỳ Điện toán đám mây</div>
+  </footer>
+
+  <script>
+    (function () {
+      var host = window.location.hostname || 'localhost';
+      document.getElementById('host-label').textContent = host;
+      var links = document.querySelectorAll('a[data-href]');
+      for (var i = 0; i < links.length; i++) {
+        var url = links[i].getAttribute('data-href').replace('HOST', host);
+        links[i].href = url;
+        links[i].target = '_blank';
+        links[i].rel = 'noopener';
+        links[i].textContent = links[i].textContent.replace('HOST', host);
+      }
+
+      var badge = document.getElementById('whoami');
+      fetch('/whoami', { cache: 'no-store' })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+        .then(function (t) {
+          t = t.trim();
+          if (!t || t.length > 100 || t.indexOf('<') !== -1) throw new Error('invalid');
+          badge.textContent = 'Phục vụ bởi: ' + t;
+        })
+        .catch(function () {
+          badge.textContent = 'Phục vụ bởi: không xác định';
+          badge.classList.add('err');
+        });
+    })();
+  </script>
+</body>
+</html>

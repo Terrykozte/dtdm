@@ -1,0 +1,12 @@
+# Object storage data & minio runtime
+storage/data/*
+!storage/data/.gitkeep
+
+# Logs & temp
+*.log
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,36 @@
+$TTL 1H
+; Private DNS zone cloud.local cua MyMiniCloud
+; Dia chi IP trung voi IP tinh cua container trong mang cloud-net (10.10.10.0/24)
+; Moi lan sua file: tang Serial roi chay  docker restart internal-dns-server
+@   IN SOA ns.cloud.local. admin.cloud.local. (
+        2025111302 ; Serial (YYYYMMDDnn)
+        1H         ; Refresh
+        15M        ; Retry
+        1W         ; Expire
+        1H )       ; Negative cache TTL
+    IN NS  ns.cloud.local.
+
+ns                          IN A     10.10.10.53
+
+; ---- Ban ghi co ban ----
+web-frontend-server         IN A     10.10.10.10
+web-server                  IN CNAME web-frontend-server
+
+; ---- Mo rong 6: ban ghi moi ----
+app-backend                 IN A     10.10.10.20
+minio                       IN A     10.10.10.50
+keycloak                    IN A     10.10.10.40
+
+; ---- Cac service con lai ----
+web-frontend-server1        IN A     10.10.10.10
+web-frontend-server2        IN A     10.10.10.11
+application-backend-server  IN CNAME app-backend
+db                          IN A     10.10.10.30
+auth                        IN CNAME keycloak
+storage                     IN CNAME minio
+dns-server                  IN A     10.10.10.53
+prometheus                  IN A     10.10.10.60
+node-exporter               IN A     10.10.10.61
+grafana                     IN A     10.10.10.70
+proxy                       IN A     10.10.10.80
+www                         IN CNAME proxy

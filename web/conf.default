@@ -1,0 +1,48 @@
+# Nginx server block cho Web Frontend (static website hosting)
+# File nay duoc copy vao /etc/nginx/templates/ -> entrypoint cua image nginx se
+# thay bien moi truong ${WEB_SERVER_ID} (envsubst) roi sinh ra /etc/nginx/conf.d/default.conf
+server {
+  listen 80;
+  server_name _;
+  charset utf-8;
+
+  root /usr/share/nginx/html;
+  index index.html;
+
+  # Header cho biet container nao da phuc vu request (dung de kiem thu Load Balancer)
+  add_header X-Served-By "${WEB_SERVER_ID}" always;
+
+  location / {
+    try_files $uri $uri/ =404;
+  }
+
+  # Blog ca nhan (chu y alias co dau / o cuoi)
+  location ^~ /blog/ {
+    alias /usr/share/nginx/html/blog/;
+    index index.html;
+    autoindex off;
+  }
+
+  # Tra ve ten server -> kiem thu Round Robin qua reverse proxy
+  location = /whoami {
+    default_type text/plain;
+    add_header X-Served-By "${WEB_SERVER_ID}" always;
+    add_header Cache-Control "no-store" always;
+    return 200 "${WEB_SERVER_ID}\n";
+  }
+
+  # Endpoint metric dang Prometheus text format -> Prometheus scrape target 'web' se UP
+  location = /metrics {
+    default_type "text/plain; version=0.0.4";
+    access_log off;
+    return 200 "# HELP web_frontend_up Web frontend server availability (1 = up)\n# TYPE web_frontend_up gauge\nweb_frontend_up{server=\"${WEB_SERVER_ID}\"} 1\n";
+  }
+
+  # Thong ke ket noi cua Nginx (stub_status)
+  location = /nginx_status {
+    stub_status;
+    access_log off;
+  }
+
+  error_page 404 /404.html;
+}

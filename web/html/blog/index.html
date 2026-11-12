@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MyMiniCloud Blog</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="/"><span class="dot"></span><span class="grad">MyMiniCloud</span></a>
+      <nav class="nav">
+        <a href="/">Trang chủ</a>
+        <a href="/blog/" class="active">Blog</a>
+        <a href="/lb-test.html">LB Test</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <p><a href="/">← Về trang chủ</a></p>
+      <section class="hero">
+        <div>
+          <h1>MyMiniCloud Blog</h1>
+          <p>Xin chào! Đây là góc nhỏ nơi mình chia sẻ những điều học được trong quá trình làm đồ án
+            Điện toán đám mây, những chuyến đi đáng nhớ và kinh nghiệm tự học của một sinh viên CNTT.
+            Blog được phục vụ bởi máy chủ Nginx chạy trong container Docker của hệ thống MyMiniCloud.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="/blog/blog1.html">Đọc bài mới nhất →</a>
+          </div>
+        </div>
+        <img src="/blog/images/hero.svg" alt="Minh họa đám mây và mạng lưới máy chủ" width="800" height="450">
+      </section>
+
+      <h2 class="section-title">Tất cả bài viết</h2>
+      <div class="grid">
+        <article class="card post-card">
+          <a href="/blog/blog1.html"><img src="/blog/images/docker-cloud.svg" alt="Cá voi Docker chở các container trên nền đám mây" width="800" height="450"></a>
+          <div class="body">
+            <div><span class="tag">Công nghệ</span> <span class="meta">· 05/11/2026</span></div>
+            <h3><a href="/blog/blog1.html">Docker và Container: nền tảng của điện toán đám mây hiện đại</a></h3>
+            <p>Container khác máy ảo ở điểm nào? Image, network, volume và Docker Compose giúp MyMiniCloud vận hành 9 máy chủ ra sao?</p>
+            <a class="more" href="/blog/blog1.html">Đọc tiếp →</a>
+          </div>
+        </article>
+
+        <article class="card post-card">
+          <a href="/blog/blog2.html"><img src="/blog/images/dalat.svg" alt="Đồi thông, hồ nước và hoàng hôn Đà Lạt" width="800" height="450"></a>
+          <div class="body">
+            <div><span class="tag">Du lịch</span> <span class="meta">· 08/11/2026</span></div>
+            <h3><a href="/blog/blog2.html">Hành trình 3 ngày khám phá Đà Lạt</a></h3>
+            <p>Lịch trình chi tiết từng ngày, những địa điểm không thể bỏ lỡ, mẹo di chuyển và bảng chi phí thực tế cho sinh viên.</p>
+            <a class="more" href="/blog/blog2.html">Đọc tiếp →</a>
+          </div>
+        </article>
+
+        <article class="card post-card">
+          <a href="/blog/blog3.html"><img src="/blog/images/study.svg" alt="Bàn học với sách, laptop và đèn bàn" width="800" height="450"></a>
+          <div class="body">
+            <div><span class="tag">Học tập</span> <span class="meta">· 10/11/2026</span></div>
+            <h3><a href="/blog/blog3.html">Phương pháp tự học hiệu quả cho sinh viên CNTT</a></h3>
+            <p>Pomodoro, active recall, học qua dự án và bộ công cụ giúp bạn tự học lập trình bền bỉ và hiệu quả hơn.</p>
+            <a class="more" href="/blog/blog3.html">Đọc tiếp →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">© MyMiniCloud – Đồ án cuối kỳ Điện toán đám mây</div>
+  </footer>
+</body>
+</html>

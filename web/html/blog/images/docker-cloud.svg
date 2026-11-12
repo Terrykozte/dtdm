@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450" role="img" aria-label="Cá voi Docker chở container giữa những đám mây">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b3d91"/>
+      <stop offset="0.6" stop-color="#1e88e5"/>
+      <stop offset="1" stop-color="#81d4fa"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0277bd"/>
+      <stop offset="1" stop-color="#01325e"/>
+    </linearGradient>
+    <linearGradient id="whale" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4fc3f7"/>
+      <stop offset="1" stop-color="#0d47a1"/>
+    </linearGradient>
+    <linearGradient id="c1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#29b6f6"/><stop offset="1" stop-color="#0277bd"/>
+    </linearGradient>
+    <linearGradient id="c2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b388ff"/><stop offset="1" stop-color="#5e35b1"/>
+    </linearGradient>
+    <linearGradient id="c3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4dd0e1"/><stop offset="1" stop-color="#00838f"/>
+    </linearGradient>
+    <linearGradient id="cl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d6ecff"/>
+    </linearGradient>
+    <g id="box">
+      <rect width="56" height="40" rx="3"/>
+      <g stroke="#ffffff" stroke-opacity="0.35" stroke-width="2">
+        <line x1="12" y1="5" x2="12" y2="35"/><line x1="24" y1="5" x2="24" y2="35"/>
+        <line x1="36" y1="5" x2="36" y2="35"/><line x1="48" y1="5" x2="48" y2="35"/>
+      </g>
+    </g>
+  </defs>
+  <rect width="800" height="450" fill="url(#sky)"/>
+  <circle cx="660" cy="90" r="42" fill="#fff59d" opacity="0.9"/>
+  <g fill="url(#cl)">
+    <path d="M70 120 c-20 0 -30 -22 -12 -32 c0 -22 28 -32 44 -18 c10 -20 46 -20 54 4 c22 -2 30 24 14 34 c4 8 -2 12 -10 12 Z" opacity="0.95"/>
+    <path d="M440 80 c-16 0 -24 -18 -10 -26 c0 -18 22 -26 36 -14 c8 -16 38 -16 44 4 c18 -2 24 20 12 28 Z" opacity="0.85"/>
+    <path d="M560 175 c-22 0 -34 -24 -14 -36 c0 -24 32 -36 50 -20 c12 -22 52 -22 60 4 c24 -2 34 26 16 38 Z" opacity="0.9"/>
+    <path d="M200 60 c-12 0 -18 -14 -8 -20 c0 -14 18 -20 28 -10 c6 -12 30 -12 34 2 c14 -2 18 16 8 22 Z" opacity="0.75"/>
+  </g>
+  <rect y="330" width="800" height="120" fill="url(#sea)"/>
+  <g fill="none" stroke="#b3e5fc" stroke-opacity="0.5" stroke-width="3" stroke-linecap="round">
+    <path d="M20 350 q20 -10 40 0 t40 0 t40 0"/><path d="M600 370 q20 -10 40 0 t40 0 t40 0"/>
+    <path d="M120 410 q20 -10 40 0 t40 0"/><path d="M520 425 q20 -10 40 0 t40 0"/>
+  </g>
+  <g transform="translate(160 150)">
+    <use href="#box" x="80" y="40" fill="url(#c1)"/>
+    <use href="#box" x="140" y="40" fill="url(#c2)"/>
+    <use href="#box" x="200" y="40" fill="url(#c3)"/>
+    <use href="#box" x="260" y="40" fill="url(#c1)"/>
+    <use href="#box" x="110" y="-4" fill="url(#c2)"/>
+    <use href="#box" x="170" y="-4" fill="url(#c3)"/>
+    <use href="#box" x="230" y="-4" fill="url(#c1)"/>
+    <use href="#box" x="170" y="-48" fill="url(#c2)"/>
+    <use href="#box" x="230" y="-48" fill="url(#c3)"/>
+    <path d="M20 90 L420 90 C440 90 455 75 465 60 C470 52 482 50 485 60 C488 75 470 95 455 100 C450 160 380 210 250 210 C120 210 40 170 20 120 C10 100 10 90 20 90 Z" fill="url(#whale)"/>
+    <path d="M60 150 C120 185 260 195 360 165" fill="none" stroke="#e1f5fe" stroke-opacity="0.6" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="85" cy="125" r="9" fill="#fff"/><circle cx="87" cy="125" r="5" fill="#0d1b3e"/>
+    <path d="M465 60 C475 30 500 20 520 30 C500 35 490 48 485 60 Z" fill="url(#whale)"/>
+  </g>
+  <g fill="#e1f5fe" opacity="0.85">
+    <circle cx="225" cy="230" r="5"/><circle cx="210" cy="210" r="7"/><circle cx="228" cy="188" r="4"/>
+  </g>
+  <text x="400" y="420" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="800" fill="#e1f5fe" letter-spacing="2">DOCKER · CONTAINER · CLOUD-NET</text>
+</svg>
