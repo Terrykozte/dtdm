@@ -13,7 +13,7 @@
       "email": "sv01@cloud.local",
       "emailVerified": true,
       "firstName": "Pham Hoai",
-      "lastName": "Thuong (SV01)",
+      "lastName": "Thuong",
       "credentials": [
         { "type": "password", "value": "sv01@123", "temporary": false }
       ]
@@ -24,7 +24,7 @@
       "email": "sv02@cloud.local",
       "emailVerified": true,
       "firstName": "Sinh Vien",
-      "lastName": "Hai (SV02)",
+      "lastName": "Hai",
       "credentials": [
         { "type": "password", "value": "sv02@123", "temporary": false }
       ]
