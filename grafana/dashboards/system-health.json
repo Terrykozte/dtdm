@@ -1,8 +1,8 @@
 {
-  "uid": "system-health-sv001",
-  "title": "System Health of SV001",
-  "description": "Dashboard ca nhan - Mo rong 8: CPU Usage, Memory Usage, Network Traffic (datasource Prometheus / Node Exporter)",
-  "tags": ["myminicloud", "node-exporter", "sv001"],
+  "uid": "system-health-52300262",
+  "title": "System Health of 52300262",
+  "description": "Dashboard ca nhan Pham Hoai Thuong (52300262) - Mo rong 8: CPU Usage, Memory Usage, Network Traffic (datasource Prometheus / Node Exporter)",
+  "tags": ["myminicloud", "node-exporter", "52300262"],
   "timezone": "browser",
   "editable": true,
   "graphTooltip": 1,

@@ -1,7 +1,7 @@
 [
-  { "id": 1, "name": "Nguyen Van A", "major": "Computer Science", "gpa": 3.5 },
-  { "id": 2, "name": "Tran Thi B", "major": "Information Systems", "gpa": 3.7 },
-  { "id": 3, "name": "Le Van C", "major": "Software Engineering", "gpa": 3.2 },
-  { "id": 4, "name": "Pham Thi D", "major": "Data Science", "gpa": 3.8 },
-  { "id": 5, "name": "Hoang Van E", "major": "Cybersecurity", "gpa": 3.4 }
+  { "id": 1, "student_id": "52300262", "name": "Pham Hoai Thuong", "major": "Information Technology", "gpa": 3.9 },
+  { "id": 2, "student_id": "SV001", "name": "Nguyen Van A", "major": "Computer Science", "gpa": 3.5 },
+  { "id": 3, "student_id": "SV002", "name": "Tran Thi B", "major": "Information Systems", "gpa": 3.7 },
+  { "id": 4, "student_id": "SV003", "name": "Le Van C", "major": "Software Engineering", "gpa": 3.2 },
+  { "id": 5, "student_id": "SV004", "name": "Pham Thi D", "major": "Data Science", "gpa": 3.8 }
 ]

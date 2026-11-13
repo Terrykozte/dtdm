@@ -52,27 +52,33 @@ app.json.ensure_ascii = False  # giu nguyen tieng Viet trong JSON
 app.json.sort_keys = False
 
 # ------------------------------------------------------------------- JWKS ---
-_JWKS = None
-_TS = 0
+_JWKS_CACHE = {}
+KC_BASE_URL = os.getenv(
+    "KC_BASE_URL",
+    "http://authentication-identity-server:8080/auth",
+)
+ALLOWED_REALMS = {"realm_sv001", "realm_52300262", "master", REALM}
 
 
-def get_jwks(force=False):
-    """Lay bo khoa cong khai cua Keycloak, cache 10 phut."""
-    global _JWKS, _TS
+def get_jwks(realm=REALM, force=False):
+    """Lay bo khoa cong khai cua Keycloak theo realm, cache 10 phut."""
     now = time.time()
-    if force or not _JWKS or now - _TS > 600:
-        _JWKS = requests.get(JWKS_URL, timeout=5).json()
-        _TS = now
-    return _JWKS
+    cached = _JWKS_CACHE.get(realm)
+    if force or not cached or now - cached[1] > 600:
+        url = f"{KC_BASE_URL.rstrip('/')}/realms/{realm}/protocol/openid-connect/certs"
+        data = requests.get(url, timeout=5).json()
+        _JWKS_CACHE[realm] = (data, now)
+        return data
+    return cached[0]
 
 
-def find_signing_key(token):
+def find_signing_key(token, realm=REALM):
     kid = jwt.get_unverified_header(token).get("kid")
     for force in (False, True):  # thu lai 1 lan neu Keycloak da xoay khoa
-        for key in get_jwks(force).get("keys", []):
+        for key in get_jwks(realm, force).get("keys", []):
             if key.get("kid") == kid and key.get("use", "sig") == "sig":
                 return key
-    raise ValueError("Khong tim thay signing key phu hop (kid=%s)" % kid)
+    raise ValueError("Khong tim thay signing key phu hop (kid=%s, realm=%s)" % (kid, realm))
 
 
 # ------------------------------------------------------------------ helper ---
@@ -148,19 +154,20 @@ def secure():
         return jsonify(error="Missing Bearer token"), 401
     token = auth.split(" ", 1)[1]
     try:
-        key = find_signing_key(token)
+        unverified_claims = jwt.get_unverified_claims(token)
+        iss = unverified_claims.get("iss", "")
+        token_realm = iss.rstrip("/").rsplit("/", 1)[-1] if "/realms/" in iss else REALM
+        if token_realm not in ALLOWED_REALMS:
+            return jsonify(error=f"Invalid issuer realm: {iss}"), 401
+        key = find_signing_key(token, token_realm)
         payload = jwt.decode(
-            token, key, algorithms=["RS256"], audience=AUDIENCE,
-            # Issuer phu thuoc URL ma client dung de lay token (localhost:8081,
-            # localhost/auth qua proxy, IP public EC2...) nen kiem tra theo realm.
-            options={"verify_iss": False},
+            token, key, algorithms=["RS256"],
+            options={"verify_iss": False, "verify_aud": False},
         )
-        iss = payload.get("iss", "")
-        if not iss.rstrip("/").endswith(f"/realms/{REALM}"):
-            return jsonify(error=f"Invalid issuer: {iss}"), 401
         return jsonify(
             message="Secure resource OK",
             preferred_username=payload.get("preferred_username"),
+            realm=token_realm,
             issuer=iss,
             audience=payload.get("aud"),
             expires_at=payload.get("exp"),
